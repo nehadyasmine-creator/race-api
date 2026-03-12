@@ -29,4 +29,22 @@ public class RunnerService {
                 )
         );
     }
+
+    public Runner create(Runner runner) {
+        if (runner.getEmail() == null || !runner.getEmail().contains("@")) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST,
+                    String.format("Email %s not conform", runner.getEmail())
+            );
+        }
+        return runnerRepository.save(runner);
+    }
+
+    public void delete(Long id) {
+        runnerRepository.deleteById(id);
+    }
+
+    public Runner update(Runner runner) {
+        return runnerRepository.save(runner);
+    }
 }
